@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <title>Projeto_Poke_API</title>
+
+</head>
+
+
+
+<body>
+    <div id="site-grid-container">
+        <div class="area cabecalho-grid-item"></div>
+        <div class="area menu-grid-item menu-flex-container">
+            <nav>
+                <a href="index.html"> PokéAPI</a>
+                <a href=""> Rick and Morty API</a>
+            </nav>
+        </div>
+
+        <div class="area tela-grid-item tela-flex-container">
+            <div class="pokedex">
+                <div>Buscar Pokemon por ID:</div>
+                <div>
+                    <input type="text" id="id_pokemon" placeholder="">
+                    <button class="botoes" onclick="buscarPersonagem()">Buscar</button>
+                </div>
+                <div class="visor">
+                    <img id="imagem_personagem" src="" alt="">
+                </div>
+
+                <div id="resultado">
+                    <div id="container_nome"></div>
+                    <div id="container_id"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="area rodape-grid-item"></div>
+    </div>
+
+</body>
+
+</html>
+
+
+<script>
+    function buscarPersonagem() {
+        const idPersonagem = document.getElementById("id_pokemon").value
+        $.ajax({
+            url: `https://pokeapi.co/api/v2/pokemon/${idPersonagem}`,
+            type: "get",
+            success: function (result) {
+                document.getElementById("imagem_personagem").src = result.sprites.front_default
+                document.getElementById("container_nome").innerHTML = result.species.name
+                document.getElementById("container_id").innerHTML = result.id
+            }
+        });
+    }
+</script>
+
+<style>
+    html,
+    body {
+        margin: 0px;
+    }
+
+    .area.rodape-grid-item,
+    .area.cabecalho-grid-item {
+        position: relative;
+    }
+
+    #site-grid-container {
+        background-color: lightgray;
+        height: 100vh;
+        display: grid;
+        grid-template-rows: 0.2fr 1fr 0.2fr;
+        grid-template-columns: 0.3fr 1fr;
+        grid-template-areas:
+            "cabecalho cabecalho"
+            "menu tela"
+            "rodape rodape";
+    }
+
+    #resultado {
+        display: block;
+    }
+
+    .area {
+        margin: 2px;
+        background-color: white;
+    }
+
+    .cabecalho-grid-item {
+        grid-area: cabecalho;
+        background-color: rgb(46, 44, 44);
+    }
+
+    .menu-grid-item {
+        grid-area: menu;
+        background-color: lightcoral;
+    }
+
+    .tela-grid-item {
+        grid-area: tela;
+        background-color: white;
+    }
+
+    .rodape-grid-item {
+        grid-area: rodape;
+        background-color: rgb(46, 44, 44);
+    }
+
+    .menu-flex-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tela-flex-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .pokedex {
+        background-color: red;
+        border: solid black 2px;
+        height: 300px;
+        width: 200px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .area.menu-grid-item.menu-flex-container a {
+        display: block;
+        margin: 0.5rem auto;
+    }
+
+    .nome_pokemon {
+        text-align: center;
+        padding: 0;
+        border: 1px solid rgb(6, 6, 122);
+        width: 80%;
+        border-radius: 1rem;
+        background-color: blue;
+        color: white;
+    }
+
+    .visor {
+        margin-top: 10px;
+        height: 90px;
+        width: 90px;
+        background-color: lightblue;
+        border: solid lightblue 10px;
+        border-radius: 10px;
+    }
+
+    img {
+        width: 100%;
+        box-shadow: 5px 1px 11px rgb(152, 196, 211);
+    }
+
+    #id_pokemon {
+        width: 100px;
+        border-radius: 10px;
+    }
+
+    button {
+        background-color: rgb(72, 27, 233);
+        text-align: center;
+        width: 3.5rem;
+        border-radius: 100%;
+        border: solid white 3px;
+        color: white;
+    }
+</style>
