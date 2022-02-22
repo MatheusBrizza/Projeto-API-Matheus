@@ -24,20 +24,25 @@
             </nav>
         </div>
 
+
+
         <div class="area tela-grid-item tela-flex-container">
-            <div class="pokedex">
+            <div class="container-busca">
                 <div>Buscar Pokemon por ID:</div>
                 <div>
                     <input type="text" id="id_pokemon" placeholder="">
                     <button class="botoes" onclick="buscarPersonagem()">Buscar</button>
                 </div>
+            </div>
+
+            <div class="pokedex">
+
                 <div class="visor">
                     <img id="imagem_personagem" src="" alt="">
                 </div>
 
                 <div id="resultado">
                     <div id="container_nome"></div>
-                    <div id="container_id"></div>
                 </div>
 
             </div>
@@ -60,7 +65,6 @@
             success: function (result) {
                 document.getElementById("imagem_personagem").src = result.sprites.front_default
                 document.getElementById("container_nome").innerHTML = result.species.name
-                document.getElementById("container_id").innerHTML = result.id
             }
         });
     }
@@ -127,6 +131,14 @@
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    .container-busca {
+        border: solid black 2px;
+        border-radius: 10px;
+        margin-right: 2px;
+        padding: 2px 10px 10px 10px;
+
     }
 
     .pokedex {
