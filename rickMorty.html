@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>rico e morto API</title>
+</head>
+
+<body>
+    <div id="site-grid-container">
+        <div class="area cabecalho-grid-item"></div>
+        <div class="area menu-grid-item menu-flex-container">
+            <nav>
+                <a href="index.html"> PokéAPI</a>
+                <a href="rickMorty.html"> Rick and Morty API</a>
+            </nav>
+        </div>
+
+        <div class="area tela-grid-item tela-flex-container">
+
+            <div id="titulo">
+                <h1>The Rick and Morty API</h1>
+            </div>
+
+            <div id="card_busca">
+                <input id="id_personagem" type="number">
+                <button onclick="buscarPersonagem()">Pesquisar</button>
+            </div>
+
+
+            <div id="card_personagem">
+                <img width="200px" id="imagem_personagem" src="" alt="">
+            </div>
+
+            <div id="dados_personagem">
+                <ul>
+                    <li id="nome"></li>
+                    <li id="status"></li>
+                    <li id="species"></li>
+                    <li id="type"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="area rodape-grid-item"></div>    
+</body>
+
+</html>
+
+<script>
+    function buscarPersonagem() {
+        const idPersonagem = document.getElementById("id_personagem").value
+        $.ajax({
+            url: "https://rickandmortyapi.com/api/character/" + idPersonagem,
+            type: "get",
+            success: function (result) {
+                console.log(result)
+
+                document.getElementById("imagem_personagem").src = result.image
+                document.getElementById("nome").innerHTML = result.name
+                document.getElementById("status").innerHTML = result.status
+                document.getElementById("species").innerHTML = result.species
+                document.getElementById("type").innerHTML = result.type
+            }
+        });
+    }
+</script>
+
+<style>
+     html,
+    body {
+        margin: 0px;
+    }
+
+    .area.rodape-grid-item,
+    .area.cabecalho-grid-item {
+        position: relative;
+    }
+
+    #site-grid-container {
+        background-color: lightgray;
+        height: 100vh;
+        display: grid;
+        grid-template-rows: 0.2fr 1fr 0.2fr;
+        grid-template-columns: 0.3fr 1fr;
+        grid-template-areas:
+            "cabecalho cabecalho"
+            "menu tela"
+            "rodape rodape";
+    }
+
+    .area {
+        margin: 2px;
+        background-color: white;
+    }
+
+    .cabecalho-grid-item {
+        grid-area: cabecalho;
+        background-color: rgb(46, 44, 44);
+    }
+
+    .menu-grid-item {
+        grid-area: menu;
+        background-color: lightcoral;
+    }
+
+    .tela-grid-item {
+        grid-area: tela;
+        background-color: white;
+    }
+
+    .rodape-grid-item {
+        grid-area: rodape;
+        background-color: rgb(46, 44, 44);
+    }
+
+    .menu-flex-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tela-flex-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .area.menu-grid-item.menu-flex-container a {
+        display: block;
+        margin: 0.5rem auto;
+    }
+
+    body {
+        background-color: rgb(109, 255, 255);
+    }
+
+    h1 {
+        font-size: 65px;
+        text-align: center;
+    }
+
+    #card_busca {
+
+        text-align: center;
+    }
+
+    #card_personagem {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    #dados_personagem {
+        text-align: center;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 25px;
+
+    }
+</style>
